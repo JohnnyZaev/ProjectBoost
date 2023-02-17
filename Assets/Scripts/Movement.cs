@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField] private float thrustMultiplier = 1000f;
+    
+    private Rigidbody _objectRigidbody;
+
+    private void Start()
+    {
+        _objectRigidbody = GetComponent<Rigidbody>();
+    }
+
     private void Update()
     {
         ProcessThrust();
@@ -10,8 +19,8 @@ public class Movement : MonoBehaviour
 
     private void ProcessThrust()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Debug.Log("Space");
+        if (Input.GetKey(KeyCode.Space))
+            _objectRigidbody.AddRelativeForce(Vector3.up * (thrustMultiplier * Time.deltaTime));
     }
 
     private void ProcessRotation()
