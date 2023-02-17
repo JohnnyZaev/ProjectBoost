@@ -27,8 +27,15 @@ public class Movement : MonoBehaviour
     private void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
-            transform.Rotate(Vector3.forward * (rotatePerSecond * Time.deltaTime));
+            ApplyRotation(rotatePerSecond);
         else if (Input.GetKey(KeyCode.D))
-            transform.Rotate(Vector3.back * (rotatePerSecond * Time.deltaTime));
+            ApplyRotation(-rotatePerSecond);
+    }
+
+    private void ApplyRotation(float rotationThisFrame)
+    {
+        _objectRigidbody.freezeRotation = true;
+        transform.Rotate(Vector3.forward * (rotationThisFrame * Time.deltaTime));
+        _objectRigidbody.freezeRotation = false;
     }
 }
