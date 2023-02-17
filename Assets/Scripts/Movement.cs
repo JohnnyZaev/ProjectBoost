@@ -3,6 +3,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float thrustMultiplier = 1000f;
+    [SerializeField] private float rotatePerSecond = 90f;
     
     private Rigidbody _objectRigidbody;
 
@@ -26,8 +27,8 @@ public class Movement : MonoBehaviour
     private void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
-            Debug.Log("Left");
-        if (Input.GetKey(KeyCode.D))
-            Debug.Log("Right");
+            transform.Rotate(Vector3.forward * (rotatePerSecond * Time.deltaTime));
+        else if (Input.GetKey(KeyCode.D))
+            transform.Rotate(Vector3.back * (rotatePerSecond * Time.deltaTime));
     }
 }
