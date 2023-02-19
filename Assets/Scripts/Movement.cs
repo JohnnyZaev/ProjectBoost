@@ -5,11 +5,11 @@ public class Movement : MonoBehaviour
     [SerializeField] private float thrustMultiplier = 1000f;
     [SerializeField] private float rotatePerSecond = 90f;
     
-    private Rigidbody _objectRigidbody;
+    private Rigidbody _rocketRigidbody;
 
     private void Start()
     {
-        _objectRigidbody = GetComponent<Rigidbody>();
+        _rocketRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
     private void ProcessThrust()
     {
         if (Input.GetKey(KeyCode.Space))
-            _objectRigidbody.AddRelativeForce(Vector3.up * (thrustMultiplier * Time.deltaTime));
+            _rocketRigidbody.AddRelativeForce(Vector3.up * (thrustMultiplier * Time.deltaTime));
     }
 
     private void ProcessRotation()
@@ -34,8 +34,8 @@ public class Movement : MonoBehaviour
 
     private void ApplyRotation(float rotationThisFrame)
     {
-        _objectRigidbody.freezeRotation = true;
+        _rocketRigidbody.freezeRotation = true;
         transform.Rotate(Vector3.forward * (rotationThisFrame * Time.deltaTime));
-        _objectRigidbody.freezeRotation = false;
+        _rocketRigidbody.freezeRotation = false;
     }
 }
