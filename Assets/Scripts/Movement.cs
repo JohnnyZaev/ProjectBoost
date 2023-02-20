@@ -6,10 +6,12 @@ public class Movement : MonoBehaviour
     [SerializeField] private float rotatePerSecond = 90f;
     
     private Rigidbody _rocketRigidbody;
+    private AudioSource _rocketAudioSource;
 
     private void Start()
     {
         _rocketRigidbody = GetComponent<Rigidbody>();
+        _rocketAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -21,7 +23,17 @@ public class Movement : MonoBehaviour
     private void ProcessThrust()
     {
         if (Input.GetKey(KeyCode.Space))
+        {
+            if (!_rocketAudioSource.isPlaying)
+            {
+                _rocketAudioSource.Play();
+            }
             _rocketRigidbody.AddRelativeForce(Vector3.up * (thrustMultiplier * Time.deltaTime));
+        }
+        else
+        {
+            _rocketAudioSource.Stop();
+        }
     }
 
     private void ProcessRotation()
