@@ -5,6 +5,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private float thrustMultiplier = 1000f;
     [SerializeField] private float rotatePerSecond = 90f;
 
+    [SerializeField] private ParticleSystem mainEngineParticle;
+    [SerializeField] private ParticleSystem leftEngineParticle;
+    [SerializeField] private ParticleSystem rightEngineParticle;
+
     private Rigidbody _rocketRigidbody;
     private AudioSource _rocketAudioSource;
 
@@ -28,20 +32,36 @@ public class Movement : MonoBehaviour
             {
                 _rocketAudioSource.Play();
             }
+            if (!mainEngineParticle.isPlaying)
+                mainEngineParticle.Play();
             _rocketRigidbody.AddRelativeForce(Vector3.up * (thrustMultiplier * Time.deltaTime));
         }
         else
         {
             _rocketAudioSource.Stop();
+            mainEngineParticle.Stop();
         }
     }
 
     private void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
+        {
             ApplyRotation(rotatePerSecond);
+            if (!rightEngineParticle.isPlaying)
+                rightEngineParticle.Play();
+        }
         else if (Input.GetKey(KeyCode.D))
+        {
             ApplyRotation(-rotatePerSecond);
+            if (!leftEngineParticle.isPlaying)
+                leftEngineParticle.Play();
+        }
+        else
+        {
+            leftEngineParticle.Stop();
+            rightEngineParticle.Stop();
+        }
     }
 
     private void ApplyRotation(float rotationThisFrame)
