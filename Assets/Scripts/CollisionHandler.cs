@@ -9,6 +9,8 @@ public class CollisionHandler : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    private bool _isTransitioning;
+
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -16,6 +18,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_isTransitioning)
+            return;
         switch (collision.gameObject.tag)
         {
             case "Friendly":
@@ -35,12 +39,16 @@ public class CollisionHandler : MonoBehaviour
 
     private void StartCrushSequence()
     {
+        _isTransitioning = true;
+        _audioSource.Stop();
         _audioSource.PlayOneShot(crushSound);
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(ReloadLevel), levelLoadDelay);
     }
     private void StartSuccessSequence()
     {
+        _isTransitioning = true;
+        _audioSource.Stop();
         _audioSource.PlayOneShot(successSound);
         GetComponent<Movement>().enabled = false;
         Invoke(nameof(LoadNextLevel), levelLoadDelay);
