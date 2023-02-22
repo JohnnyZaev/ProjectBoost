@@ -4,7 +4,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float thrustMultiplier = 1000f;
     [SerializeField] private float rotatePerSecond = 90f;
-    
+
     private Rigidbody _rocketRigidbody;
     private AudioSource _rocketAudioSource;
 

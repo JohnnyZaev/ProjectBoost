@@ -239,3 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9484b7d984d795244afc5fc9128fac39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoadDelay: 1
+  successSound: {fileID: 8300000, guid: fef8213742859be4eb5a7bfeb66e6c3f, type: 3}
+  crushSound: {fileID: 8300000, guid: 1c30774f872e45c42af33fdc2c4fe9db, type: 3}
