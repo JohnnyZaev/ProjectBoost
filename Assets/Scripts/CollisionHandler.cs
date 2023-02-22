@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
@@ -12,15 +14,24 @@ public class CollisionHandler : MonoBehaviour
     private AudioSource _audioSource;
 
     private bool _isTransitioning;
+    private bool _isCheating;
 
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+            LoadNextLevel();
+        if (Input.GetKeyDown(KeyCode.C))
+            _isCheating = !_isCheating;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (_isTransitioning)
+        if (_isTransitioning || _isCheating)
             return;
         switch (collision.gameObject.tag)
         {
