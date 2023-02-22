@@ -16,6 +16,8 @@ public class Oscillator : MonoBehaviour
 
     private void Update()
     {
+        if (period <= Mathf.Epsilon)
+            return;
         var cycles = Time.time / period;
 
         const float tau = Mathf.PI * 2;
